@@ -62,6 +62,19 @@ class RecipeTest < Minitest::Test
     assert_equal expected, recipe1.ingredients
   end
 
+  def test_it_can_find_all_the_names_of_the_ingredients
+    recipe1 = Recipe.new("Mac and Cheese")
+    ingredient1 = Ingredient.new({name: "Cheese", unit: "C", calories: 100})
+    ingredient2 = Ingredient.new({name: "Macaroni", unit: "oz", calories: 30})
+
+    recipe1.add_ingredient(ingredient1, 2)
+    recipe1.add_ingredient(ingredient1, 4)
+    recipe1.add_ingredient(ingredient2, 8)
+
+    expected = ["Cheese", "Macaroni"]
+    assert_equal expected, recipe1.ingredients_names
+  end
+
   def test_it_can_up_total_calories_for_a_recipe
     ingredient1 = Ingredient.new({name: "Cheese", unit: "C", calories: 100})
     ingredient2 = Ingredient.new({name: "Macaroni", unit: "oz", calories: 30})
@@ -91,6 +104,4 @@ class RecipeTest < Minitest::Test
     assert_equal 440, recipe1.total_calories
     assert_equal 675, recipe2.total_calories
   end
-
-  
 end
